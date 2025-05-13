@@ -1,0 +1,225 @@
+﻿@model IEnumerable<WebBanHang.Models.ShoppingCartItem>
+
+
+@using WebBanHang.Models.Common
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card border-0 rounded-3 shadow-lg mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Giỏ Hàng</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Tổng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        var tongtien = decimal.Zero;
+                                        foreach (var item in Model)
+                                        {
+                                            tongtien += item.TotalPrice;
+                                            <tr id="trow_@item.ProductId">
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="@item.ProductImg" class="rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="@item.ProductName">
+                                                        <div class="ms-3">
+                                                            <h6 class="mb-0"><a href="/chi-tiet/@item.Alias-p@(item.ProductId)" class="text-dark text-decoration-none">@item.ProductName</a></h6>
+                                                            @*<small class="text-muted">Mã: @Model.ProductCode</small>*@
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>@Common.FormatNumber(item.Price, 0) ₫</td>
+                                                <td>
+                                                    <div class="input-group" style="width: 120px;">
+                                                        <button class="btn btn-outline-primary btnMinus" type="button" data-id="@item.ProductId">-</button>
+                                                        <input type="text" class="form-control text-center" id="Quantity_@item.ProductId" value="@item.Quantity" min="1">
+                                                        <button class="btn btn-outline-primary btnPlus" type="button" data-id="@item.ProductId">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="total-price">@Common.FormatNumber(item.TotalPrice, 0) ₫</td>
+                                                <td>
+                                                    <button class="btn btn-outline-danger btn-sm btnDelete" data-id="@item.ProductId">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    @*<button class="btn btn-outline-primary btn-sm btnUpdate" data-id="@item.ProductId">
+                                                        <i class="fas fa-sync-alt"></i>
+                                                    </button>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center">Không có sản phẩm nào trong giỏ hàng</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="/" class="btn btn-outline-primary rounded-pill">
+                                <i class="fas fa-arrow-left me-2"></i>Tiếp tục mua sắm
+                            </a>
+                            <button class="btn btn-outline-danger rounded-pill btnDeleteAll">
+                                <i class="fas fa-trash me-2"></i>Xóa giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 rounded-3 shadow-lg">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Tổng Đơn Hàng</h4>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Tạm tính</span>
+                            <span class="total-amount">@Common.FormatNumber(Model?.Sum(x => x.TotalPrice) ?? 0, 0) ₫</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Giảm giá</span>
+                            <span class="text-success">-0 ₫</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Phí vận chuyển</span>
+                            <span>Miễn phí</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <h5 class="mb-0">Tổng cộng</h5>
+                            <h5 class="mb-0 total-amount">@Common.FormatNumber(Model?.Sum(x => x.TotalPrice) ?? 0, 0) ₫</h5>
+                        </div>
+                        <div class="d-grid">
+                            <a href="/thanh-toan" class="btn btn-primary rounded-pill py-3">Thanh Toán</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Xử lý tăng/giảm số lượng
+        const quantityInputs = document.querySelectorAll('.input-group input');
+        const decreaseButtons = document.querySelectorAll('.input-group button:first-child');
+        const increaseButtons = document.querySelectorAll('.input-group button:last-child');
+
+        decreaseButtons.forEach((button, index) => {
+            button.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInputs[index].value);
+                if (currentValue > 1) {
+                    quantityInputs[index].value = currentValue - 1;
+                    updateTotal();
+                    saveQuantity(quantityInputs[index].id.split('_')[1], currentValue - 1);
+                }
+            });
+        });
+
+        increaseButtons.forEach((button, index) => {
+            button.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInputs[index].value);
+                quantityInputs[index].value = currentValue + 1;
+                updateTotal();
+                saveQuantity(quantityInputs[index].id.split('_')[1], currentValue + 1);
+            });
+        });
+
+        // Hàm cập nhật tổng tiền
+        function updateTotal() {
+            const rows = document.querySelectorAll('tbody tr');
+            let total = 0;
+
+            rows.forEach(row => {
+                if (row.id && row.id.startsWith('trow_')) {
+                    const quantity = parseInt(row.querySelector('.input-group input').value);
+                    const price = parseFloat(row.querySelector('td:nth-child(2)').textContent.replace(/[^\d]/g, ''));
+                    const rowTotal = quantity * price;
+                    row.querySelector('td:nth-child(4)').textContent = formatCurrency(rowTotal);
+                    total += rowTotal;
+                }
+            });
+
+            // Cập nhật tất cả các phần hiển thị tổng tiền
+            const totalElements = document.querySelectorAll('.total-amount');
+            totalElements.forEach(element => {
+                element.textContent = formatCurrency(total);
+            });
+
+            // Cập nhật tạm tính và tổng cộng trong card bên phải
+            const cardBody = document.querySelector('.col-lg-4 .card-body');
+            cardBody.querySelector('.d-flex:first-of-type span:last-child').textContent = formatCurrency(total);
+            cardBody.querySelector('.d-flex:last-of-type h5:last-child').textContent = formatCurrency(total);
+        }
+
+        // Hàm format tiền tệ
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount) + ' ₫';
+        }
+
+        // Hàm lưu số lượng sản phẩm
+        function saveQuantity(productId, quantity) {
+            $.ajax({
+                url: '/ShoppingCart/UpdateQuantity',
+                type: 'POST',
+                data: {
+                    id: productId,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    if (response.Success) {
+                        // Cập nhật số lượng thành công
+                        console.log('Đã cập nhật số lượng sản phẩm ' + productId + ' thành ' + quantity);
+                    } else {
+                        // Cập nhật số lượng thất bại
+                        console.error('Không thể cập nhật số lượng sản phẩm');
+                    }
+                },
+                error: function() {
+                    console.error('Lỗi khi cập nhật số lượng sản phẩm');
+                }
+            });
+        }
+
+        // Xử lý nút xóa sản phẩm
+        $('.btnDelete').click(function() {
+            const productId = $(this).data('id');
+            $.ajax({
+                url: '/ShoppingCart/Delete',
+                type: 'POST',
+                data: { id: productId },
+                success: function(response) {
+                    if (response.Success) {
+                        $('#trow_' + productId).remove();
+                        updateTotal();
+                        location.reload(); // Tải lại trang để cập nhật giỏ hàng
+                    }
+                }
+            });
+        });
+
+        // Xử lý nút xóa tất cả sản phẩm
+        $('.btnDeleteAll').click(function() {
+            $.ajax({
+                url: '/ShoppingCart/DeleteAll',
+                type: 'POST',
+                success: function(response) {
+                    if (response.Success) {
+                        location.reload(); // Tải lại trang để cập nhật giỏ hàng
+                    }
+                }
+            });
+        });
+    });
+</script>

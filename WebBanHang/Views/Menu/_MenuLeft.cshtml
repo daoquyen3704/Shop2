@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.ProductCategory>
+
+@if (Model != null && Model.Any())
+{
+<ul class="list-unstyled">
+    @foreach (var item in Model)
+    {
+        if (ViewBag.CateId == item.Id)
+        {
+    <li class="active mb-2"><a href="/danh-muc-san-pham/@item.Alias-@(item.Id)" class="d-flex justify-content-between text-dark">@item.Title</a></li>
+        }
+        else
+        {
+            <li class="mb-2"><a href="/danh-muc-san-pham/@item.Alias-@(item.Id)" class="d-flex justify-content-between text-dark">@item.Title</a></li>
+        }
+    }
+</ul>
+@*<ul class="list-unstyled">
+    <li class="mb-2"><a href="#" class="d-flex justify-content-between"><span>Đồng hồ nam</span> <span>(15)</span></a></li>
+    <li class="mb-2"><a href="#" class="d-flex justify-content-between"><span>Đồng hồ nữ</span> <span>(12)</span></a></li>
+    <li class="mb-2"><a href="#" class="d-flex justify-content-between"><span>Đồng hồ thông minh</span> <span>(8)</span></a></li>
+    <li class="mb-2"><a href="#" class="d-flex justify-content-between"><span>Bảo dưỡng đồng hồ</span> <span>(6)</span></a></li>
+    <li><a href="#" class="d-flex justify-content-between"><span>Tin tức</span> <span>(10)</span></a></li>
+</ul>*@
+}
+
+<style>
+    .list-unstyled li a {
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .list-unstyled li a:hover {
+        color: #dc3545 !important;
+    }
+    .list-unstyled li.active a {
+        color: #dc3545 !important;
+    }
+</style>

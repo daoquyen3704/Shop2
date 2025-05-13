@@ -1,0 +1,71 @@
+﻿@model WebBanHang.Models.LoginViewModel
+@{
+    ViewBag.Title = "Đăng Nhập";
+}
+
+<!-- Login Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 rounded-3 shadow-lg">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4 text-center">Đăng Nhập</h4>
+
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @type = "text", @placeholder = "Nhập email hoặc tên đăng nhập", required = "required" })
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Nhập mật khẩu", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4 form-check">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input", id = "remember" })
+                                <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary rounded-pill py-3">Đăng Nhập</button>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                @Html.ActionLink("Quên mật khẩu?", "ForgotPassword", "Account", null, new { @class = "text-primary" })
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <p class="mb-0">Hoặc đăng nhập bằng</p>
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <a href="#" class="btn btn-outline-primary rounded-circle"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="@Url.Action("ExternalLogin", "Account", new { provider = "Google", returnUrl = ViewBag.ReturnUrl })"
+                                       class="btn btn-outline-primary rounded-circle" title="Đăng nhập bằng Google">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary rounded-circle"><i class="fab fa-apple"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                @Html.ActionLink("Chưa có tài khoản? Đăng ký ngay", "Register", "Account", null, new { @class = "text-decoration-none text-primary" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login End -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

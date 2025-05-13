@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>Chi Tiết Sản Phẩm - Luxury Watch</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="display-6 text-primary"><i class="fas fa-clock me-3"></i>Luxury Watch</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Trang Chủ</a>
+                        <a href="about.html" class="nav-item nav-link">Giới Thiệu</a>
+                        <a href="service.html" class="nav-item nav-link">Dịch Vụ</a>
+                        <a href="blog.html" class="nav-item nav-link">Blog</a>
+                        <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary rounded-pill py-2 px-4 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-2"></i>Nguyễn Văn A
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Hồ Sơ</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag me-2"></i>Đơn Hàng</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i>Yêu Thích</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Đăng Xuất</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Product Detail Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-4">
+                <!-- Product Images -->
+                <div class="col-lg-6">
+                    <div class="card border-0 rounded-3 shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="position-relative">
+                                <img src="img/car-1.png" class="img-fluid rounded-3" alt="Product">
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    <button class="btn btn-outline-danger rounded-circle">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row g-2 mt-3">
+                                <div class="col-3">
+                                    <img src="img/car-1.png" class="img-fluid rounded-3" alt="Thumbnail">
+                                </div>
+                                <div class="col-3">
+                                    <img src="img/car-2.png" class="img-fluid rounded-3" alt="Thumbnail">
+                                </div>
+                                <div class="col-3">
+                                    <img src="img/car-3.png" class="img-fluid rounded-3" alt="Thumbnail">
+                                </div>
+                                <div class="col-3">
+                                    <img src="img/car-4.png" class="img-fluid rounded-3" alt="Thumbnail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-lg-6">
+                    <div class="card border-0 rounded-3 shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3">Rolex Submariner</h2>
+                            <p class="text-muted mb-3">Mã: ROL-001</p>
+                            <h3 class="text-primary mb-4">1.500.000.000 ₫</h3>
+                            
+                            <div class="mb-4">
+                                <h5 class="mb-3">Mô tả sản phẩm</h5>
+                                <p>Rolex Submariner là một trong những mẫu đồng hồ lặn nổi tiếng nhất thế giới. Với thiết kế cổ điển và độ bền vượt trội, đây là sự lựa chọn hoàn hảo cho những người yêu thích phiêu lưu và phong cách.</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5 class="mb-3">Thông số kỹ thuật</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Đường kính mặt: 41mm</li>
+                                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Chất liệu vỏ: Thép không gỉ 904L</li>
+                                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Dây đeo: Thép không gỉ</li>
+                                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Chống nước: 300m</li>
+                                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Bộ máy: Calibre 3235</li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5 class="mb-3">Số lượng</h5>
+                                <div class="input-group" style="width: 150px;">
+                                    <button class="btn btn-outline-primary" type="button">-</button>
+                                    <input type="text" class="form-control text-center" value="1">
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary rounded-pill py-3">
+                                    <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ hàng
+                                </button>
+                                <button class="btn btn-outline-primary rounded-pill py-3">
+                                    <i class="fas fa-phone me-2"></i>Liên hệ tư vấn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Tabs -->
+                <div class="col-12 mt-5">
+                    <div class="card border-0 rounded-3 shadow-lg">
+                        <div class="card-body p-4">
+                            <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Mô tả chi tiết</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab">Thông số kỹ thuật</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Đánh giá</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="productTabsContent">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel">
+                                    <h5 class="mb-3">Thiết kế tinh xảo</h5>
+                                    <p>Rolex Submariner là biểu tượng của sự sang trọng và độ bền. Với thiết kế cổ điển không bao giờ lỗi thời, chiếc đồng hồ này kết hợp hoàn hảo giữa vẻ đẹp và chức năng.</p>
+                                    <h5 class="mb-3 mt-4">Chất lượng vượt trội</h5>
+                                    <p>Mỗi chiếc Rolex Submariner đều được chế tác thủ công với độ chính xác cao nhất. Từ khâu lựa chọn vật liệu đến quy trình sản xuất, mọi chi tiết đều được kiểm soát chặt chẽ.</p>
+                                </div>
+                                <div class="tab-pane fade" id="specs" role="tabpanel">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Thương hiệu</th>
+                                                <td>Rolex</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Dòng sản phẩm</th>
+                                                <td>Submariner</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Đường kính mặt</th>
+                                                <td>41mm</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Chất liệu vỏ</th>
+                                                <td>Thép không gỉ 904L</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Dây đeo</th>
+                                                <td>Thép không gỉ</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Chống nước</th>
+                                                <td>300m</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Bộ máy</th>
+                                                <td>Calibre 3235</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                    <div class="mb-4">
+                                        <h5 class="mb-3">Đánh giá của khách hàng</h5>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="me-3">
+                                                <h2 class="mb-0">4.8</h2>
+                                                <div class="text-warning">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0">Dựa trên 25 đánh giá</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="d-flex mb-3">
+                                            <img src="img/testimonial-1.jpg" class="rounded-circle me-3" style="width: 50px; height: 50px;" alt="Avatar">
+                                            <div>
+                                                <h6 class="mb-1">Nguyễn Văn B</h6>
+                                                <div class="text-warning mb-2">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <p class="mb-0">Sản phẩm tuyệt vời, chất lượng đúng như mong đợi. Dịch vụ chăm sóc khách hàng rất tốt.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="d-flex mb-3">
+                                            <img src="img/testimonial-2.jpg" class="rounded-circle me-3" style="width: 50px; height: 50px;" alt="Avatar">
+                                            <div>
+                                                <h6 class="mb-1">Trần Thị C</h6>
+                                                <div class="text-warning mb-2">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                                <p class="mb-0">Đồng hồ đẹp, nhưng giá hơi cao. Tuy nhiên, chất lượng xứng đáng với giá tiền.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Products -->
+                <div class="col-12 mt-5">
+                    <h3 class="mb-4">Sản phẩm liên quan</h3>
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card border-0 rounded-3 shadow-lg h-100">
+                                <div class="position-relative">
+                                    <img src="img/car-2.png" class="card-img-top" alt="Product">
+                                    <div class="position-absolute top-0 end-0 p-2">
+                                        <button class="btn btn-outline-danger rounded-circle">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Omega Seamaster</h5>
+                                    <p class="card-text text-muted">Mã: OMG-002</p>
+                                    <h4 class="text-primary mb-3">800.000.000 ₫</h4>
+                                    <div class="d-grid">
+                                        <a href="product-detail.html" class="btn btn-primary rounded-pill">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card border-0 rounded-3 shadow-lg h-100">
+                                <div class="position-relative">
+                                    <img src="img/car-3.png" class="card-img-top" alt="Product">
+                                    <div class="position-absolute top-0 end-0 p-2">
+                                        <button class="btn btn-outline-danger rounded-circle">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Patek Philippe Nautilus</h5>
+                                    <p class="card-text text-muted">Mã: PP-003</p>
+                                    <h4 class="text-primary mb-3">2.500.000.000 ₫</h4>
+                                    <div class="d-grid">
+                                        <a href="product-detail.html" class="btn btn-primary rounded-pill">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card border-0 rounded-3 shadow-lg h-100">
+                                <div class="position-relative">
+                                    <img src="img/car-4.png" class="card-img-top" alt="Product">
+                                    <div class="position-absolute top-0 end-0 p-2">
+                                        <button class="btn btn-outline-danger rounded-circle">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Rolex Daytona</h5>
+                                    <p class="card-text text-muted">Mã: ROL-004</p>
+                                    <h4 class="text-primary mb-3">1.800.000.000 ₫</h4>
+                                    <div class="d-grid">
+                                        <a href="product-detail.html" class="btn btn-primary rounded-pill">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card border-0 rounded-3 shadow-lg h-100">
+                                <div class="position-relative">
+                                    <img src="img/car-1.png" class="card-img-top" alt="Product">
+                                    <div class="position-absolute top-0 end-0 p-2">
+                                        <button class="btn btn-outline-danger rounded-circle">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Omega Speedmaster</h5>
+                                    <p class="card-text text-muted">Mã: OMG-005</p>
+                                    <h4 class="text-primary mb-3">900.000.000 ₫</h4>
+                                    <div class="d-grid">
+                                        <a href="product-detail.html" class="btn btn-primary rounded-pill">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product Detail End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h4 class="text-white mb-4">Về Chúng Tôi</h4>
+                            <p class="mb-3">Luxury Watch là đơn vị phân phối đồng hồ cao cấp hàng đầu tại Việt Nam.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Liên Kết Nhanh</h4>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Giới Thiệu</a>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Sản Phẩm</a>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Thương Hiệu</a>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Liên Hệ</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Giờ Mở Cửa</h4>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Thứ 2 - Thứ 6:</h6>
+                            <p class="text-white mb-0">09:00 - 20:00</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Thứ 7:</h6>
+                            <p class="text-white mb-0">09:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Thông Tin Liên Hệ</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 123 Nguyễn Huệ, Q.1, TP.HCM</a>
+                        <a href="mailto:info@luxurywatch.vn"><i class="fas fa-envelope me-2"></i> info@luxurywatch.vn</a>
+                        <a href="tel:+842834567890"><i class="fas fa-phone me-2"></i> +84 28 3456 7890</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Product Detail Javascript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý nút yêu thích
+            const favoriteButton = document.querySelector('.btn-outline-danger');
+            favoriteButton.addEventListener('click', function() {
+                this.classList.toggle('btn-danger');
+                this.classList.toggle('btn-outline-danger');
+            });
+
+            // Xử lý tăng/giảm số lượng
+            const quantityInput = document.querySelector('.input-group input');
+            const decreaseButton = document.querySelector('.input-group button:first-child');
+            const increaseButton = document.querySelector('.input-group button:last-child');
+
+            decreaseButton.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+
+            increaseButton.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                quantityInput.value = currentValue + 1;
+            });
+
+            // Xử lý chuyển đổi ảnh thumbnail
+            const thumbnails = document.querySelectorAll('.col-3 img');
+            const mainImage = document.querySelector('.img-fluid.rounded-3');
+
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    mainImage.src = this.src;
+                });
+            });
+        });
+    </script>
+</body>
+
+</html> 

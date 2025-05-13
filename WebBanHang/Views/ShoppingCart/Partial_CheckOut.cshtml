@@ -1,0 +1,122 @@
+﻿@model WebBanHang.Models.OrderViewModel
+@using (Ajax.BeginForm("CheckOut", "Shoppingcart", new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "load_data",
+    OnSuccess = "OnSuccessCO",
+    OnFailure = "OnFailure",
+    OnBegin = "OnBeginCO"
+
+}, new { @Id = "myForm" }))
+{
+    <script>
+        function OnBeginCO() {
+            $('#btnCheckOut').attr("disabled", "disabled");
+            $('#load_send').html('<div class="alert alert-info"><i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý đơn hàng...</div>');
+        }
+        function OnSuccessCO(res) {
+            if (res.Success) {
+                if (res.Code == 1) {
+                    location.href = "/ShoppingCart/CheckOutSuccess";
+                }
+                else {
+                    location.href = res.Url;
+                }
+            }
+        }
+        function OnFailure() {
+            $('#load_send').html('<div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>Có lỗi xảy ra, vui lòng thử lại</div>');
+            $('#btnCheckOut').removeAttr("disabled");
+        }
+    </script>
+    @Html.AntiForgeryToken()
+    <div class="card border-0 rounded-3 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0">Thông tin thanh toán</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <div class="form-floating mb-2">
+                        <input type="text" name="CustomerName" id="customerName" class="form-control form-control-sm" placeholder="Họ tên" required autocomplete="off" />
+                        <label for="customerName">Họ tên khách hàng</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-2">
+                        <input type="text" name="Phone" id="phone" class="form-control form-control-sm" placeholder="Số điện thoại" autocomplete="off" />
+                        <label for="phone">Số điện thoại</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating mb-2">
+                        <input type="text" name="Address" id="address" class="form-control form-control-sm" placeholder="Địa chỉ" autocomplete="off" />
+                        <label for="address">Địa chỉ</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating mb-2">
+                        <input type="email" name="Email" id="email" class="form-control form-control-sm" placeholder="Email" autocomplete="off" />
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating mb-2">
+                        <select class="form-select form-select-sm" name="TypePayment" id="drTypePayment">
+                            <option value="1" selected>COD</option>
+                            <option value="2">Chuyển khoản</option>
+                        </select>
+                        <label for="drTypePayment">Hình thức thanh toán</label>
+                    </div>
+                </div>
+                <div class="col-12" id="load_form_payment" style="display:none;">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body p-2">
+                            <h6 class="mb-2 small">Chọn phương thức thanh toán:</h6>
+                            <div class="mb-2">
+                                <h6 class="text-primary small">Cách 1: Chuyển hướng sang VNPAY</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="TypePaymentVN" id="vnpayqr" value="0" checked>
+                                    <label class="form-check-label small" for="vnpayqr">Cổng thanh toán VNPAYQR</label>
+                                </div>
+                            </div>
+                            <div>
+                                <h6 class="text-primary small">Cách 2: Tách phương thức thanh toán</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="TypePaymentVN" id="app" value="1">
+                                    <label class="form-check-label small" for="app">Thanh toán qua ứng dụng hỗ trợ VNPAYQR</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="TypePaymentVN" id="atm" value="2">
+                                    <label class="form-check-label small" for="atm">ATM-Tài khoản ngân hàng nội địa</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="TypePaymentVN" id="international" value="3">
+                                    <label class="form-check-label small" for="international">Thanh toán qua thẻ quốc tế</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" id="load_send"></div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary w-100 py-2" id="btnCheckOut">
+                        <i class="fas fa-shopping-cart me-2"></i>Đặt hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#drTypePayment').change(function() {
+                if ($(this).val() == 2) {
+                    $('#load_form_payment').show();
+                } else {
+                    $('#load_form_payment').hide();
+                }
+            });
+        });
+    </script>
+}

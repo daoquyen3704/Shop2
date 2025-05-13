@@ -1,0 +1,103 @@
+﻿@model WebBanHang.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký";
+}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 rounded-3 shadow-lg">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4">Đăng Ký</h4>
+
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(m => m.FirstName, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(m => m.LastName, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Phone, new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @type = "tel", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
+                                @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Nam", "Nữ", "Khác" }), "Chọn giới tính", new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Birthday, new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Address, new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">Tôi đồng ý với <a href="#" class="text-primary">Điều khoản và Điều kiện</a></label>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary rounded-pill py-3">Đăng Ký</button>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <p class="mb-0">Hoặc đăng ký bằng</p>
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <a href="#" class="btn btn-outline-primary rounded-circle"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="@Url.Action("ExternalLogin", "Account", new { provider = "Google", returnUrl = "/" })"
+                                       class="btn btn-outline-primary rounded-circle" title="Đăng nhập bằng Google">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary rounded-circle"><i class="fab fa-apple"></i></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

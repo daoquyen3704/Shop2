@@ -1,0 +1,347 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.Product>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+}
+<!-- Products Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="card border-0 rounded-3 shadow-lg mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-4">Bộ Lọc</h4>
+
+                        <!-- Thương hiệu -->
+                        <div class="mb-4">
+                            <!-- Categories Start -->
+                            <div class="blog-sidebar-item mb-5">
+                                <h5 class="mb-3">Danh mục sản phẩm</h5>
+                                @Html.Action("MenuLeft", "Menu")
+                            </div>
+                            <!-- Categories End -->
+                        </div>
+
+                        <!-- Giá -->
+                        <div class="mb-4">
+                            <h5 class="mb-3">Giá</h5>
+                            <div class="form-check">
+                                <input class="form-check-input price-filter" type="checkbox" id="price1" value="0-50000000">
+                                <label class="form-check-label" for="price1">Dưới 50 triệu</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input price-filter" type="checkbox" id="price2" value="50000000-100000000">
+                                <label class="form-check-label" for="price2">50 triệu - 100 triệu</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input price-filter" type="checkbox" id="price3" value="100000000-999999999">
+                                <label class="form-check-label" for="price3">Trên 100 triệu</label>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0">Sản Phẩm</h4>
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="form-control me-2" placeholder="Tìm kiếm..." style="width: 200px;">
+                        <span class="me-2">Sắp xếp:</span>
+                        <select class="form-select" style="width: auto;">
+                            <option value="newest">Mới nhất</option>
+                            <option value="price-asc">Giá tăng dần</option>
+                            <option value="price-desc">Giá giảm dần</option>
+                            <option value="name-asc">Tên A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model.Take(9))
+                        {
+                            var strImg = item.ProductImage.FirstOrDefault(x => x.IsDefault)?.Image ?? "path/to/default.png";
+
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card border-0 rounded-3 shadow-lg h-100">
+                                    <div class="position-relative">
+                                        <img src="@strImg" class="card-img-top" alt="@item.Title" />
+
+                                        <!-- Badge hiển thị nhiều trạng thái -->
+                                        <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1">
+                                            @if (item.IsSale)
+                                            {
+                                                <span class="badge bg-danger">SALE</span>
+                                            }
+                                            @if (item.IsHot)
+                                            {
+                                                <span class="badge bg-warning text-dark">HOT</span>
+                                            }
+                                            @if (item.IsFeature)
+                                            {
+                                                <span class="badge bg-info text-dark">FEATURED</span>
+                                            }
+                                            @if (item.IsHome)
+                                            {
+                                                <span class="badge bg-success">NEW</span>
+                                            }
+                                        </div>
+
+                                        <div class="position-absolute top-0 end-0 p-2">
+                                            <button class="btn btn-outline-danger rounded-circle btn-toggle-wishlist" data-product-id="@item.Id">
+                                                <i class="fas fa-heart icon-heart"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-title">@item.Title</h6>
+                                        <p class="card-text text-muted">Mã: @item.ProductCode</p>
+                                        <p class="card-text text-muted" style="font-size: 0.85rem; white-space: pre-line;">@item.Description</p>
+                                        <h6 class="text-primary mb-3 text-center">
+                                            @if (item.PriceSale.HasValue && item.PriceSale.Value > 0 && item.IsSale)
+                                            {
+                                                <span class="text-decoration-line-through text-muted me-2">@WebBanHang.Models.Common.Common.FormatNumber(item.Price, 0) ₫</span>
+                                                <span>@WebBanHang.Models.Common.Common.FormatNumber(item.PriceSale.Value, 0) ₫</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@WebBanHang.Models.Common.Common.FormatNumber(item.Price, 0) ₫</span>
+                                            }
+                                        </h6>
+                                        <div class="d-grid">
+                                            <a href="/chi-tiet/@item.Alias-p@(item.Id)" class="btn btn-primary rounded-pill">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" id="prevPage">
+                            <a class="page-link" href="#" tabindex="-1">Trước</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item" id="nextPage">
+                            <a class="page-link" href="#">Sau</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+@section scripts {
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Các biến toàn cục
+            let currentPage = 1;
+            const itemsPerPage = 3;
+            let allProducts = Array.from(document.querySelectorAll('.col-md-6.col-lg-4'));
+            let filteredProducts = [...allProducts];
+
+            // Hàm hiển thị sản phẩm theo trang
+            function displayProducts(page) {
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const productsToShow = filteredProducts.slice(startIndex, endIndex);
+                
+                // Ẩn tất cả sản phẩm
+                allProducts.forEach(product => product.style.display = 'none');
+                
+                // Hiển thị sản phẩm của trang hiện tại
+                productsToShow.forEach(product => product.style.display = 'block');
+                
+                // Cập nhật phân trang
+                updatePagination();
+            }
+
+            // Hàm cập nhật phân trang
+            function updatePagination() {
+                const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+                const pagination = document.querySelector('.pagination');
+                const prevPage = document.getElementById('prevPage');
+                const nextPage = document.getElementById('nextPage');
+                
+                // Xóa các trang cũ
+                const pageItems = pagination.querySelectorAll('li:not(#prevPage):not(#nextPage)');
+                pageItems.forEach(item => item.remove());
+                
+                // Thêm các trang mới
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageItem = document.createElement('li');
+                    pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                    pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                    
+                    // Thêm sự kiện click
+                    pageItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        currentPage = i;
+                        displayProducts(currentPage);
+                    });
+                    
+                    pagination.insertBefore(pageItem, nextPage);
+                }
+                
+                // Cập nhật nút Previous và Next
+                prevPage.classList.toggle('disabled', currentPage === 1);
+                nextPage.classList.toggle('disabled', currentPage === totalPages);
+                
+                // Thêm sự kiện cho nút Previous
+                prevPage.addEventListener('click', function(e) {
+                    if (currentPage > 1) {
+                        e.preventDefault();
+                        currentPage--;
+                        displayProducts(currentPage);
+                    }
+                });
+                
+                // Thêm sự kiện cho nút Next
+                nextPage.addEventListener('click', function(e) {
+                    if (currentPage < totalPages) {
+                        e.preventDefault();
+                        currentPage++;
+                        displayProducts(currentPage);
+                    }
+                });
+            }
+
+            // Xử lý tìm kiếm
+            const searchInput = document.querySelector('input[type="text"]');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filteredProducts = allProducts.filter(product => {
+                    const title = product.querySelector('.card-title').textContent.toLowerCase();
+                    const description = product.querySelector('.card-text').textContent.toLowerCase();
+                    const productCode = product.querySelector('.card-text.text-muted').textContent.toLowerCase();
+                    
+                    return title.includes(searchTerm) || 
+                           description.includes(searchTerm) || 
+                           productCode.includes(searchTerm);
+                });
+                
+                currentPage = 1;
+                displayProducts(currentPage);
+            });
+
+            // Xử lý lọc giá
+            const priceFilters = document.querySelectorAll('.price-filter');
+            priceFilters.forEach(filter => {
+                filter.addEventListener('change', function() {
+                    const selectedPrices = Array.from(priceFilters)
+                        .filter(f => f.checked)
+                        .map(f => f.value.split('-').map(Number));
+                    
+                    filteredProducts = allProducts.filter(product => {
+                        const priceElement = product.querySelector('.text-primary');
+                        let priceText = priceElement.textContent;
+                        
+                        if (priceElement.querySelector('.text-decoration-line-through')) {
+                            const prices = priceText.split('₫');
+                            priceText = prices[1].trim();
+                        } else {
+                            priceText = priceText.split('₫')[0].trim();
+                        }
+                        
+                        const price = parseInt(priceText.replace(/[^\d]/g, ''));
+                        
+                        if (selectedPrices.length === 0) return true;
+                        return selectedPrices.some(range => price >= range[0] && price <= range[1]);
+                    });
+                    
+                    currentPage = 1;
+                    displayProducts(currentPage);
+                });
+            });
+
+            // Xử lý sắp xếp
+            const sortSelect = document.querySelector('.form-select');
+            sortSelect.addEventListener('change', function () {
+                const sortValue = this.value;
+                
+                filteredProducts.sort((a, b) => {
+                    const getPrice = (element) => {
+                        const priceElement = element.querySelector('.text-primary');
+                        let priceText = priceElement.textContent;
+                        
+                        if (priceElement.querySelector('.text-decoration-line-through')) {
+                            const prices = priceText.split('₫');
+                            priceText = prices[1].trim();
+                        } else {
+                            priceText = priceText.split('₫')[0].trim();
+                        }
+                        
+                        return parseInt(priceText.replace(/[^\d]/g, ''));
+                    };
+
+                    switch (sortValue) {
+                        case 'newest':
+                            return 0; // Giữ nguyên thứ tự
+                        case 'price-asc':
+                            return getPrice(a) - getPrice(b);
+                        case 'price-desc':
+                            return getPrice(b) - getPrice(a);
+                        case 'name-asc':
+                            const nameA = a.querySelector('.card-title').textContent;
+                            const nameB = b.querySelector('.card-title').textContent;
+                            return nameA.localeCompare(nameB);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                currentPage = 1;
+                displayProducts(currentPage);
+            });
+
+            // Khởi tạo hiển thị
+            displayProducts(currentPage);
+        });
+
+        $(document).on('click', '.btn-toggle-wishlist', function () {
+            var btn = $(this);
+            var productId = btn.data('product-id');
+            var icon = btn.find('.icon-heart');
+
+            $.ajax({
+                url: '/WishList/PostWishlist',
+                type: 'POST',
+                data: { ProductId: productId },
+                success: function (res) {
+                    if (res.Success) {
+                        // Ẩn icon khi thêm thành công
+                        icon.hide();
+                        alert("Đã thêm vào danh sách yêu thích");
+                    } else {
+                        // Nếu đã tồn tại → gọi xóa
+                        $.ajax({
+                            url: '/WishList/PostDeleteWishlist',
+                            type: 'POST',
+                            data: { ProductId: productId },
+                            success: function (res) {
+                                if (res.Success) {
+                                    icon.show(); // Hiện lại icon khi xóa
+                                    alert("Đã xóa khỏi danh sách yêu thích");
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        
+    </script>
+}

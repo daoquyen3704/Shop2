@@ -1,0 +1,233 @@
+﻿@model WebBanHang.Models.ProfileViewModel
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .avatar-initial {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #0d6efd;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+</style>
+
+<!-- Profile Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="card border-0 rounded-3 shadow-lg mb-4">
+                    <div class="card-body text-center">
+                        @{
+                            var initials = "";
+                            if (!string.IsNullOrEmpty(Model.FirstName))
+                            {
+                                initials += Model.FirstName[0];
+                            }
+                            if (!string.IsNullOrEmpty(Model.LastName))
+                            {
+                                initials += Model.LastName[0];
+                            }
+                        }
+                        <div class="position-relative d-inline-block mb-4">
+                            @if (string.IsNullOrEmpty(Model.Avatar))
+                            {
+                                <div class="avatar-initial">@initials.ToUpper()</div>
+                            }
+                            else
+                            {
+                                <img src="@Model.Avatar" class="rounded-circle profile-avatar"
+                                     style="width: 150px; height: 150px; object-fit: cover;" alt="Profile"
+                                     data-bs-toggle="modal" data-bs-target="#avatarModal" />
+                            }
+
+                            <button type="button" class="btn btn-primary btn-sm rounded-circle position-absolute bottom-0 end-0 btn-camera">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+
+                        <h4 class="mb-1">@(Model.FirstName + " " + Model.LastName)</h4>
+                        <p class="text-muted mb-3">Thành viên từ ngày @Model.CreatedDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </div>
+                <div class="card border-0 rounded-3 shadow-lg">
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <a href="@Url.Action("Profile", "Account")" class="list-group-item list-group-item-action active">
+                                <i class="fas fa-user me-2"></i>Thông Tin Cá Nhân
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-shopping-bag me-2"></i>Đơn Hàng
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-heart me-2"></i>Yêu Thích
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <i class="fas fa-lock me-2"></i>Đổi Mật Khẩu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <div class="card border-0 rounded-3 shadow-lg">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4">Thông Tin Cá Nhân</h4>
+                        @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                        {
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(m => m.FirstName, "Họ", new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    @Html.LabelFor(m => m.LastName, "Tên", new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Email, "Email", new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Phone, "Số điện thoại", new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Birthday, new { @class = "form-label" })
+                                @Html.TextBoxFor(m => m.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Gender, "Giới tính", new { @class = "form-label" })
+                                @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Nam", Value = "male" },
+                                    new SelectListItem { Text = "Nữ", Value = "female" },
+                                    new SelectListItem { Text = "Khác", Value = "other" }
+                                }, new { @class = "form-select", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-4">
+                                @Html.LabelFor(m => m.Address, "Địa chỉ", new { @class = "form-label" })
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", rows = "3", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary rounded-pill py-3">Cập Nhật Thông Tin</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Profile End -->
+<!-- Modal để xem ảnh phóng to -->
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="avatarModalLabel">Xem Ảnh Avatar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalAvatarImage" src="" class="img-fluid" alt="Avatar" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thêm input file ẩn -->
+<input type="file" id="avatarInput" style="display: none" accept="image/*">
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Xử lý khi click vào ảnh avatar để mở modal
+            $(document).on('click', '.profile-avatar', function () {
+                var src = $(this).attr('src');
+                $('#modalAvatarImage').attr('src', src);  // Gán ảnh vào modal
+            });
+
+            // Xử lý khi chọn file avatar mới
+            $('#avatarInput').change(function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Cập nhật ảnh mới
+                    var avatarContainer = $('.position-relative.d-inline-block.mb-4');
+                    avatarContainer.html(`
+                            <img src="${e.target.result}" class="rounded-circle profile-avatar"
+                                 style="width: 150px; height: 150px; object-fit: cover;" alt="Profile"
+                                 data-bs-toggle="modal" data-bs-target="#avatarModal">
+                            <button type="button" class="btn btn-danger btn-sm rounded-circle position-absolute bottom-0 end-0 btn-remove-avatar">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm rounded-circle position-absolute bottom-0 end-0 btn-camera">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        `);
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+
+
+        $(document).ready(function() {
+            // Xử lý khi click vào nút camera
+            $('.btn-camera').click(function() {
+                $('#avatarInput').click();
+            });
+
+
+            // Xử lý khi chọn file
+            $('#avatarInput').change(function() {
+                var file = this.files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+
+                $.ajax({
+                    url: '@Url.Action("UploadAvatar", "Account")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            // Thay thế div chữ cái đầu bằng ảnh avatar
+                            var avatarContainer = $('.position-relative.d-inline-block.mb-4');
+                            avatarContainer.html(`
+                                <img src="${response.avatar}" class="rounded-circle profile-avatar"
+                                     style="width: 150px; height: 150px; object-fit: cover;" alt="Profile">
+                                <button type="button" class="btn btn-primary btn-sm rounded-circle position-absolute bottom-0 end-0 btn-camera">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            `);
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+}

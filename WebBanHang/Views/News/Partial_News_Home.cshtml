@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.News>
+@if (Model != null && Model.Any())
+{
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <img src="@item.Image" class="img-fluid rounded-top w-100" alt="@item.Title">
+                    </div>
+                    <div class="blog-content rounded-bottom p-4">
+                        <div class="blog-date">
+                            @(item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd MMM yyyy") : "")
+                        </div>
+                        <div class="blog-comment my-3">
+                            <div class="small"><span class="fa fa-user text-primary"></span><span class="ms-2">@item.CreatedBy</span></div>
+                        </div>
+                        <a href="/bai-viet/@item.Alias-n@(item.Id)" class="h4 d-block mb-3">@item.Title</a>
+                        <p class="mb-3">@item.Description</p>
+                        <a href="/bai-viet/@item.Alias-n@(item.Id)" class="">Đọc thêm <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

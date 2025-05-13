@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.News>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Blog Start -->
+<div class="container-fluid blog py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">Luxury<span class="text-primary"> Watch Blog</span></h1>
+            <p class="mb-0">
+                Khám phá thế giới đồng hồ cao cấp qua những bài viết chuyên sâu về thương hiệu, công nghệ và xu hướng mới nhất trong ngành đồng hồ xa xỉ.
+            </p>
+        </div>
+        @if (Model != null && Model.Any())
+        {
+            @Html.Action("Partial_News_Home", "News")
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+                    {
+                        LiElementClasses = new[] { "page-item" },
+                        UlElementClasses = new[] { "pagination", "justify-content-center" },
+                        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                        MaximumPageNumbersToDisplay = 5
+                    })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Blog End -->
+<!-- Custom Pagination CSS -->
+<style>
+    .pagination {
+        margin-top: 20px;
+    }
+
+        .pagination .page-item {
+            margin: 0 5px;
+        }
+
+            .pagination .page-item a {
+                border: none;
+                border-radius: 50px;
+                color: #333;
+                background-color: #f8f9fa;
+                padding: 10px 15px;
+                font-size: 16px;
+                transition: all 0.3s ease;
+            }
+
+            .pagination .page-item.active a {
+                background-color: #ea001e; /* Custom color */
+                color: #fff;
+                border-color: #007bff;
+            }
+
+            .pagination .page-item a:hover {
+                background-color: #ea001e; /* Custom color */
+                color: #fff;
+            }
+
+            .pagination .page-item.disabled a {
+                color: #ccc;
+                background-color: #f8f9fa;
+                cursor: not-allowed;
+            }
+
+            .pagination .page-item a:focus {
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+</style>

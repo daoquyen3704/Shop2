@@ -1,0 +1,184 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.Order>
+@{
+    ViewBag.Title = "Trang Chủ Admin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Trang Chủ Admin</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Quản lý đơn hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <!-- Dashboard Stats -->
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>@ViewBag.TotalOrdersToday</h3>
+                    <p>Đơn hàng hôm nay</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>@ViewBag.TotalInventory</h3>
+                    <p>Tổng số lượng hàng trong kho</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-box"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>@ViewBag.TotalInventoryValue.ToString("N0") VNĐ</h3>
+                    <p>Tổng giá trị kho hàng</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-money-bill"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders List -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách đơn hàng chờ xác nhận</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <table class="table table-bordered" id="orderTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var i = 1;
+                            foreach (var order in Model)
+                            {
+                                <tr id="order-@order.Id">
+                                    <td>@i</td>
+                                    <td>@order.Code</td>
+                                    <td>@order.CustomerName</td>
+                                    <td>@order.Phone</td>
+                                    <td>@order.Email</td>
+                                    <td>@order.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@order.TotalAmount.ToString("N0") VNĐ</td>
+                                    <td>
+                                        <span class="badge badge-warning">Chờ xác nhận</span>
+                                    </td>
+                                    <td>
+                                        <button onclick="confirmOrder(@order.Id)" class="btn btn-sm btn-success">Xác nhận</button>
+                                        <a href="/admin/order/details/@order.Id" class="btn btn-sm btn-info">Chi tiết</a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>Không có đơn hàng nào cần xác nhận.</p>
+            }
+        </div>
+        <div class="card-footer">
+            Tổng số đơn hàng chờ xác nhận: @(Model?.Count() ?? 0)
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function confirmOrder(orderId) {
+            if (confirm('Bạn có chắc chắn muốn xác nhận đơn hàng này?')) {
+                $.ajax({
+                    url: '/Admin/AdminHome/ConfirmOrder',
+                    type: 'POST',
+                    data: { id: orderId },
+                    success: function (result) {
+                        if (result.success) {
+                            toastr.success(result.message);
+                            $('#order-' + orderId).fadeOut(500, function() {
+                                $(this).remove();
+                                updateOrderCount();
+setTimeout(function() {
+if (window.parent && window.parent.location) {
+                                        window.parent.location.reload(); // Tải lại trang cha
+                                    } else {
+                                    window.location.reload(); // Fallback nếu không có trang cha
+                                    }
+                                }, 1000);
+                            });
+                        } else {
+                            toastr.error(result.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Có lỗi xảy ra khi xác nhận đơn hàng');
+                    }
+                });
+            }
+        }
+
+        function updateOrderCount() {
+            var currentCount = parseInt($('.card-footer').text().match(/\d+/)[0]);
+            $('.card-footer').text('Tổng số đơn hàng chờ xác nhận: ' + (currentCount - 1));
+        }
+
+        // Tự động tải lại trang cha mỗi 5 phút
+        setInterval(function() {
+if (window.parent && window.parent.location) {
+                window.parent.location.reload();
+            } else {
+            window.location.reload();
+}
+        }, 300000);
+    </script>
+}

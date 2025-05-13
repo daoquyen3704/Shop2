@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.Category>
+
+@if (Model != null && Model.Any())
+{
+
+    foreach (var item in Model)
+    {
+        if (item.Alias.Equals("trang-chu"))
+        {
+            item.Alias = "";
+        }
+        if (!string.IsNullOrEmpty(item.Link))
+        {
+            item.Alias = item.Link;
+        }
+        <a href="/@item.Alias" class="nav-item nav-link">@item.Title</a>
+
+    }
+
+
+}

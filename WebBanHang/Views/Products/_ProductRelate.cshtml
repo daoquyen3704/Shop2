@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebBanHang.Models.EF.Product>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        var strImg = item.ProductImage.FirstOrDefault(x => x.IsDefault)?.Image ?? "path/to/default.png";
+        <div class="col-md-6 col-lg-3">
+            <div class="card border-0 rounded-3 shadow-lg h-100">
+                <div class="position-relative">
+                    <img src="@strImg" class="card-img-top" alt="@item.Title">
+                    <div class="position-absolute top-0 end-0 p-2">
+                        <button class="btn btn-outline-danger rounded-circle">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">@item.Title</h6>
+                    <p class="card-text">Mã: @item.ProductCode</p>
+                    <p class="card-text" style="font-size: 0.85rem; white-space: pre-line;">@item.Description</p>
+                    <h6 class="text-primary mb-3 text-center">
+                        @if (item.PriceSale.HasValue && item.PriceSale.Value > 0 && item.IsSale)
+                        {
+                            <span class="text-decoration-line-through text-muted me-2">@WebBanHang.Models.Common.Common.FormatNumber(item.Price, 0) ₫</span>
+                            <span>@WebBanHang.Models.Common.Common.FormatNumber(item.PriceSale.Value, 0) ₫</span>
+                        }
+                        else
+                        {
+                            <span>@WebBanHang.Models.Common.Common.FormatNumber(item.Price, 0) ₫</span>
+                        }
+                    </h6>
+                    <div class="d-grid">
+                        <a href="/chi-tiet/@item.Alias-p@(item.Id)" class="btn btn-primary rounded-pill">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

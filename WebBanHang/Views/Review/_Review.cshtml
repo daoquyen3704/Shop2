@@ -1,0 +1,194 @@
+﻿@model WebBanHang.Models.EF.ReviewProduct
+
+<div class="add_review">
+    @using (Ajax.BeginForm("PostReview", "Review", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "load_review",
+        OnSuccess = "OnSuccessRE",
+        OnFailure = "OnFailureRE",
+        OnBegin = "OnBeginRE"
+    }, new { @Id = "review_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="card border-0 rounded-3 shadow-lg">
+            <div class="card-body p-4">
+                <h4 class="mb-4">Thêm đánh giá của bạn</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Họ tên", @id = "review_name", @required = "required" })
+                            <label for="review_name">Họ tên *</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @id = "review_email", @required = "required", @type = "email" })
+                            <label for="review_email">Email *</label>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.HiddenFor(x => x.UserName)
+                @Html.HiddenFor(x => x.ProductId, new { @Value = ViewBag.ProductId })
+                @Html.HiddenFor(x => x.Rate, new { @id = "Rate", @Value = "0" })
+
+                <div class="mt-4">
+                    <h6 class="mb-3">Đánh giá của bạn *</h6>
+                    <div class="star-rating" id="star_rating">
+                        <span class="star" data-value="1"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-4">
+                    @Html.TextAreaFor(x => x.Content, new { @class = "form-control", @placeholder = "Nội dung đánh giá", @style = "height: 100px", @required = "required" })
+                    <label for="Content">Nội dung đánh giá *</label>
+                </div>
+
+                <div id="load_send"></div>
+
+                <div class="text-end">
+                    <button id="review_submit" type="submit" class="btn btn-primary rounded-pill px-4 py-2">
+                        <i class="fas fa-paper-plane me-2"></i>Gửi đánh giá
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .star-rating {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .star-rating .star {
+        cursor: pointer;
+        font-size: 2rem;
+        color: #ddd;
+        transition: all 0.3s ease;
+    }
+    
+    .star-rating .star:hover,
+    .star-rating .star.active {
+        color: #ffc107;
+        transform: scale(1.1);
+    }
+</style>
+
+<script>
+    function OnBeginRE() {
+        $('#review_submit').attr("disabled", "disabled");
+        $('#load_send').html('<div class="alert alert-info">Đang gửi đánh giá...</div>');
+    }
+    
+    function OnSuccessRE(res) {
+        if (res.Success) {
+            $("#review_form")[0].reset();
+            $('#Rate').val('0');
+            $('.star-rating .star').removeClass('active');
+            // Load lại danh sách đánh giá
+            $.ajax({
+                url: '@Url.Action("_Load_Review", "Review")',
+                data: { id: $('#ProductId').val() },
+                type: 'GET',
+                success: function (result) {
+                    $('#load_review').html(result);
+                }
+            });
+            $('#load_send').html('<div class="alert alert-success">Đánh giá của bạn đã được gửi thành công!</div>');
+        } else {
+            $('#load_send').html('<div class="alert alert-danger">' + (res.Message || 'Có lỗi xảy ra khi gửi đánh giá') + '</div>');
+        }
+        $('#review_submit').removeAttr("disabled");
+    }
+    
+    function OnFailureRE(xhr, status, error) {
+        $('#load_send').html('<div class="alert alert-danger">Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại!</div>');
+        $('#review_submit').removeAttr("disabled");
+    }
+
+    $(document).ready(function() {
+        // Biến lưu trữ đánh giá hiện tại
+        var currentRating = 0;
+        
+        // Xử lý click vào sao
+        $("#star_rating .star").on("click", function() {
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <text>
+                alert('Vui lòng đăng nhập để đánh giá sản phẩm');
+                return false;
+                </text>
+            }
+            
+            var value = parseInt($(this).data("value"));
+            console.log("Clicked star value:", value);
+            currentRating = value;
+            $("#Rate").val(value);
+
+            $("#star_rating .star").each(function () {
+                var starValue = parseInt($(this).data("value"));
+                console.log("Checking star:", starValue, " <= ", value);
+                if (starValue <= value) {
+                    $(this).addClass("active");
+                } else {
+                    $(this).removeClass("active");
+                }
+            });
+            
+            return false; // Ngăn chặn sự kiện lan truyền
+        });
+        
+        // Xử lý hover vào sao
+        $("#star_rating .star").hover(
+            // Mouse enter
+            function() {
+                var value = parseInt($(this).data("value"));
+                $("#star_rating .star").each(function() {
+                    if (parseInt($(this).data("value")) <= value) {
+                        $(this).addClass("hover");
+                    } else {
+                        $(this).removeClass("hover");
+                    }
+                });
+            },
+            // Mouse leave
+            function() {
+                $("#star_rating .star").removeClass("hover");
+                // Khôi phục trạng thái active dựa trên đánh giá hiện tại
+                $("#star_rating .star").each(function() {
+                    if (parseInt($(this).data("value")) <= currentRating) {
+                        $(this).addClass("active");
+                    } else {
+                        $(this).removeClass("active");
+                    }
+                });
+            }
+        );
+        
+        // Kiểm tra khi submit form
+        $("#review_form").on("submit", function(e) {
+            var rate = $("#Rate").val();
+            if (!rate || rate == "0") {
+                $('#load_send').html('<div class="alert alert-warning">Vui lòng chọn số sao đánh giá</div>');
+                e.preventDefault();
+                return false;
+            }
+            
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <text>
+                alert('Vui lòng đăng nhập để đánh giá sản phẩm');
+                e.preventDefault();
+                return false;
+                </text>
+            }
+        });
+    });
+</script>

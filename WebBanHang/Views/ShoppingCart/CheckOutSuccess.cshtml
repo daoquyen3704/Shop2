@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Đặt hàng thành công";
+}
+
+<link rel="stylesheet" href="~/Content/assets/styles/categories_styles.css" />
+<link rel="stylesheet" href="~/Content/assets/styles/categories_responsive.css" />
+
+<style>
+    /* Custom styles for the success page */
+    .success-container {
+        min-height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .success-box {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+        .success-box h2 {
+            color: #28a745;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .success-box p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+    .btn-home {
+        background-color: #ea001e;
+        color: #fff;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+        .btn-home:hover {
+            background-color: #ea001e;
+            text-decoration: none;
+        }
+
+    /* Animation for fade-in effect */
+    @@keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 576px) {
+        .success-box {
+            padding: 20px;
+        }
+
+            .success-box h2 {
+                font-size: 24px;
+            }
+
+            .success-box p {
+                font-size: 14px;
+            }
+
+        .btn-home {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="success-container">
+    <div class="success-box">
+        <h2 class="text-success">Bạn đã mua hàng thành công</h2>
+        <p>Cảm ơn bạn đã tin tưởng và đặt hàng tại cửa hàng của chúng tôi.</p>
+        <a href="/" class="btn-home">Quay về trang chủ</a>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+}

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>Giỏ Hàng - Luxury Watch</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="display-6 text-primary"><i class="fas fa-clock me-3"></i>Luxury Watch</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Trang Chủ</a>
+                        <a href="about.html" class="nav-item nav-link">Giới Thiệu</a>
+                        <a href="service.html" class="nav-item nav-link">Dịch Vụ</a>
+                        <a href="blog.html" class="nav-item nav-link">Blog</a>
+                        <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary rounded-pill py-2 px-4 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-2"></i>Nguyễn Văn A
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Hồ Sơ</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag me-2"></i>Đơn Hàng</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i>Yêu Thích</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Đăng Xuất</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Shopping Cart Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card border-0 rounded-3 shadow-lg mb-4">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">Giỏ Hàng</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="img/rolex.jpg" class="rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="Product">
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0">Rolex Submariner</h6>
+                                                        <small class="text-muted">Mã: ROL-001</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>1.500.000.000 ₫</td>
+                                            <td>
+                                                <div class="input-group" style="width: 120px;">
+                                                    <button class="btn btn-outline-primary" type="button">-</button>
+                                                    <input type="text" class="form-control text-center" value="1">
+                                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                                </div>
+                                            </td>
+                                            <td>1.500.000.000 ₫</td>
+                                            <td>
+                                                <button class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="img/omega.jpg" class="rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="Product">
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0">Omega Seamaster</h6>
+                                                        <small class="text-muted">Mã: OMG-002</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>800.000.000 ₫</td>
+                                            <td>
+                                                <div class="input-group" style="width: 120px;">
+                                                    <button class="btn btn-outline-primary" type="button">-</button>
+                                                    <input type="text" class="form-control text-center" value="1">
+                                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                                </div>
+                                            </td>
+                                            <td>800.000.000 ₫</td>
+                                            <td>
+                                                <button class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <a href="index.html" class="btn btn-outline-primary rounded-pill">
+                                    <i class="fas fa-arrow-left me-2"></i>Tiếp tục mua sắm
+                                </a>
+                                <button class="btn btn-outline-danger rounded-pill">
+                                    <i class="fas fa-trash me-2"></i>Xóa giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 rounded-3 shadow-lg">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">Tổng Đơn Hàng</h4>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Tạm tính</span>
+                                <span>2.300.000.000 ₫</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Giảm giá</span>
+                                <span class="text-success">-230.000.000 ₫</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Phí vận chuyển</span>
+                                <span>Miễn phí</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-4">
+                                <h5 class="mb-0">Tổng cộng</h5>
+                                <h5 class="mb-0">2.070.000.000 ₫</h5>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Mã giảm giá</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
+                                    <button class="btn btn-primary">Áp dụng</button>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <a href="checkout.html" class="btn btn-primary rounded-pill py-3">Thanh Toán</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shopping Cart End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h4 class="text-white mb-4">Về Chúng Tôi</h4>
+                            <p class="mb-3">Luxury Watch là đơn vị phân phối đồng hồ cao cấp hàng đầu tại Việt Nam.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Liên Kết Nhanh</h4>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Giới Thiệu</a>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Sản Phẩm</a>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Thương Hiệu</a>
+                        <a href="#"><i class="fas fa-angle-right me-2"></i> Liên Hệ</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Giờ Mở Cửa</h4>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Thứ 2 - Thứ 6:</h6>
+                            <p class="text-white mb-0">09:00 - 20:00</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Thứ 7:</h6>
+                            <p class="text-white mb-0">09:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Thông Tin Liên Hệ</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 123 Nguyễn Huệ, Q.1, TP.HCM</a>
+                        <a href="mailto:info@luxurywatch.vn"><i class="fas fa-envelope me-2"></i> info@luxurywatch.vn</a>
+                        <a href="tel:+842834567890"><i class="fas fa-phone me-2"></i> +84 28 3456 7890</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Shopping Cart Javascript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý tăng/giảm số lượng
+            const quantityInputs = document.querySelectorAll('.input-group input');
+            const decreaseButtons = document.querySelectorAll('.input-group button:first-child');
+            const increaseButtons = document.querySelectorAll('.input-group button:last-child');
+
+            decreaseButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    let currentValue = parseInt(quantityInputs[index].value);
+                    if (currentValue > 1) {
+                        quantityInputs[index].value = currentValue - 1;
+                        updateTotal();
+                    }
+                });
+            });
+
+            increaseButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    let currentValue = parseInt(quantityInputs[index].value);
+                    quantityInputs[index].value = currentValue + 1;
+                    updateTotal();
+                });
+            });
+
+            // Xử lý xóa sản phẩm
+            const deleteButtons = document.querySelectorAll('.btn-outline-danger');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    row.remove();
+                    updateTotal();
+                });
+            });
+
+            // Cập nhật tổng tiền
+            function updateTotal() {
+                let subtotal = 0;
+                const rows = document.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const price = parseFloat(row.querySelector('td:nth-child(2)').textContent.replace(/[^\d]/g, ''));
+                    const quantity = parseInt(row.querySelector('input').value);
+                    const total = price * quantity;
+                    row.querySelector('td:nth-child(4)').textContent = formatCurrency(total);
+                    subtotal += total;
+                });
+
+                // Cập nhật tạm tính
+                document.querySelector('.card-body .d-flex:first-child span:last-child').textContent = formatCurrency(subtotal);
+                
+                // Cập nhật tổng cộng (trừ giảm giá)
+                const discount = 230000000; // Giảm giá cố định
+                const total = subtotal - discount;
+                document.querySelector('.card-body h5:last-child').textContent = formatCurrency(total);
+            }
+
+            // Định dạng tiền tệ
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(amount);
+            }
+
+            // Xử lý xóa giỏ hàng
+            const clearCartButton = document.querySelector('.btn-outline-danger.rounded-pill');
+            clearCartButton.addEventListener('click', function() {
+                const tbody = document.querySelector('tbody');
+                tbody.innerHTML = '';
+                updateTotal();
+            });
+
+            // Xử lý mã giảm giá
+            const applyCouponButton = document.querySelector('.card-body .btn-primary');
+            applyCouponButton.addEventListener('click', function() {
+                const couponInput = document.querySelector('.card-body input[type="text"]');
+                const couponCode = couponInput.value.trim();
+                
+                if (couponCode === 'LUXURY10') {
+                    alert('Áp dụng mã giảm giá thành công!');
+                    // Cập nhật giảm giá và tổng cộng
+                    updateTotal();
+                } else {
+                    alert('Mã giảm giá không hợp lệ!');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
